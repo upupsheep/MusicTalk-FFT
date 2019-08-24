@@ -1,6 +1,6 @@
-# MusicTalk_FFT
+# MusicTalk-FFT
 
-**MusicTalk_FFT** used a script to analysis frequency information and onset information from a wav file. Then it used **IoTTalk** to map those frequency information to color and to push these color information to other output devices.
+**MusicTalk-FFT** used a script to analysis frequency information and onset information from a wav file. Then it used **IoTTalk** to map those frequency information to color and to push these color information to other output devices.
 
 ### 1. Usage:
 
