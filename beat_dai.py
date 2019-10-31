@@ -60,54 +60,41 @@ def job_of_send_info():
         change = int(change)
         # change = change+1
         # change = change % 8
+        push_data = [0, 0, 0, 0, 0, 0, 0]
         if (change == 0):
-            color1 = 0
-            color2 = 0
-            color3 = 255
+            push_data = [0, 0, 0, 0, 0, 0, 1]
         elif (change == 1):
-            color1 = 135
-            color2 = 255
-            color3 = 255
+            push_data = [0, 0, 0, 0, 0, 1, 1]
         elif (change == 2):
-            color1 = 0
-            color2 = 255
-            color3 = 0
+            push_data = [0, 0, 0, 0, 1, 1, 1]
         elif (change == 3):
-            color1 = 255
-            color2 = 255
-            color3 = 0
+            push_data = [0, 0, 0, 1, 1, 1, 1]
         elif (change == 4):
-            color1 = 255
-            color2 = 102
-            color3 = 0
+            push_data = [0, 0, 1, 1, 1, 1, 1]
         elif (change == 5):
-            color1 = 255
-            color2 = 0
-            color3 = 0
-        elif (change == 6):
-            color1 = 255
-            color2 = 0
-            color3 = 255
+            push_data = [0, 1, 1, 1, 1, 1, 1]
+        elif (change >= 6):
+            push_data = [1, 1, 1, 1, 1, 1, 1]
         else:
-            color1 = 153
-            color2 = 0
-            color3 = 255
+            push_data = [0, 0, 0, 0, 0, 0, 0]
         # sequence += 1
         print(change, freq_list[now])
         #color_list = []
         if (beat_strength[sequence] > 6):
             print(beat_strength[sequence])
             if (sequence == len(action_list)):
-                DAN.push('music_ctl_i', 0, 0, 0)
+                DAN.push('music_ctl_i', 0, 0, 0, 0, 0, 0, 0)
             else:
-                DAN.push('music_ctl_i', color1, color2, color3)
+                DAN.push('music_ctl_i', push_data[0], push_data[1],
+                         push_data[2], push_data[3], push_data[4],
+                         push_data[5], push_data[6])
         last = now
         now = now + 1
         sequence += 1
         time.sleep(float(action_list[now]) - float(action_list[last]))
 
     # end
-    DAN.push('music_ctl_i', 0, 0, 0)
+    DAN.push('music_ctl_i', 0, 0, 0, 0, 0, 0, 0)
 
 
 def play(music_file):
