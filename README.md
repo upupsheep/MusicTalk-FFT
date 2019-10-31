@@ -31,7 +31,13 @@ file_path = "night.wav"
 Finally, run the program using the following command:
 
 ```=bash
-python3 music_with_beats.py
+python music_with_beats.py
+```
+
+If connecting with IoTTalk, run this command to start IDF program:
+
+```=bash
+python beat_dai.py
 ```
 
 
