@@ -25,14 +25,26 @@ y, sr = librosa.load(filepath)
 
 tempo, beats = librosa.beat.beat_track(y=y, sr=sr)  # tempo: BPM
 
+# Onset strength
+onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+print(onset_env.shape)
+
 # Use timing instead of frame indices
 times = librosa.frames_to_time(beats, sr=sr)
+print(times)
+print(times.shape)
+
+beat_strength = onset_env[beats]
+print(beat_strength)
+print(beat_strength.shape)
 
 if os.path.isfile(outputFile) == False:
     fo = open(outputFile, 'w')
 
     last_time = 0
-    for time_probe in times:
+    # for time_probe in times:
+    for i in range(len(times)):
+        time_probe = times[i]
         beats_window = time_probe - last_time
         N = int(beats_window * fs)
         # N = 44100
@@ -59,14 +71,16 @@ if os.path.isfile(outputFile) == False:
         # frequency of that max amplitude
         max_freq = np.argmax(abs(c[:dd - 1]))
         print("time: ")
-        print(time_probe)
+        print(i)
+        print(times[i])
+        print(beat_strength[i])
         print(max_amplitude)
         print(max_freq)
         print(freq[max_freq])
         # write out to [filepath].txt
         fo.writelines(
-            str(time_probe) + "," + str(max_amplitude) + "," + str(max_freq) +
-            "\n")
+            str(times[i]) + "," + str(max_amplitude) + "," + str(max_freq) +
+            "," + str(beat_strength[i]) + "\n")
         # time_probe = time_probe + 1
 
     fo.close()
